@@ -2,22 +2,21 @@
 
 Servo myServo;
 
-const int servoPin = 3;
-const int buttonPin = 5;
-const int initPos = 90;
-const int openPos = 0;
-const int openDelay = 864000; //Delay for one day (3600 *26 * 10), every 12h ==> 432000
+const int servoPin            = 3;
+const int buttonPin           = 5;
+const int initPos             = 90;
+const int openPos             = 0;
+const unsigned long openDelay = 864000; //Delay for one day (3600 * 24 * 10), every 12h ==> 432000
 
 int buttonVal;
 int timer = 0;
 
 void setup() {
-  //Serial.begin(9600);
+  // Serial.begin(9600);
 
   myServo.attach(servoPin);
 
-  pinMode(buttonPin, INPUT);
-  digitalWrite(buttonPin, HIGH);
+  pinMode(buttonPin, INPUT_PULLUP);
 
   myServo.attach(servoPin);
   myServo.write(initPos);
@@ -27,12 +26,12 @@ void setup() {
 
 void loop() {
   buttonVal = digitalRead(buttonPin);
-//
-//  Serial.print("Timer = ");
-//  Serial.print(timer);
-//  Serial.print("\n");
 
-  if (buttonVal == LOW || timer == openDelay) {
+  //    Serial.print("Timer = ");
+  //    Serial.print(timer);
+  //    Serial.print("\n");
+
+  if (buttonVal == 0 || timer == openDelay) {
     myServo.attach(servoPin);
     myServo.write(openPos);
     delay(575);
